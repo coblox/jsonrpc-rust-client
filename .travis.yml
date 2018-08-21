@@ -1,6 +1,5 @@
 language: rust
-cache:
-  cargo: true
+cache: cargo
 rust: stable
 before_script:
   - rustup component add rustfmt-preview
