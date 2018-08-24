@@ -1,5 +1,5 @@
 [package]
-name = "jsonrpc"
+name = "jsonrpc_client"
 version = "0.1.0"
 authors = [
     "Thomas Eizinger <thomas@coblox.tech>",
@@ -11,10 +11,7 @@ description = "Client library for talking to JsonRPC APIs."
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/coblox/jsonrpc_rust_client"
 categories = ["network-programming", "web-programming::http-client"]
-keywords = ["jsonrpc", "http"]
-
-[badges]
-travis-ci = { repository = "coblox/jsonrpc_rust_client" }
+keywords = ["jsonrpc", "http", "client"]
 
 [dependencies]
 reqwest = "0.8.8"
