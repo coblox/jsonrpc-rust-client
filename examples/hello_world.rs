@@ -1,6 +1,6 @@
-extern crate jsonrpc;
+extern crate jsonrpc_client;
 
-use jsonrpc::*;
+use jsonrpc_client::*;
 
 /// A trait defining the API you want to talk to. Not strictly necessary but nice for mocking.
 trait HelloWorldApi {
