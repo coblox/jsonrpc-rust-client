@@ -1,5 +1,7 @@
 # JsonRPC Rust Client
 
+[![Build Status](https://travis-ci.com/coblox/jsonrpc_rust_client.svg?token=EmrV8tpmLgu5PjZWH7QN&branch=master)](https://travis-ci.com/coblox/jsonrpc_rust_client)
+
 This repository contains a simple Rust client for talking to JsonRPC APIs.
 
 ## Features
