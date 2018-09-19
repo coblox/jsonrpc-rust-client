@@ -4,7 +4,7 @@ use jsonrpc_client::*;
 
 /// A trait defining the API you want to talk to. Not strictly necessary but nice for mocking.
 trait HelloWorldApi {
-    fn say_hello(&self, to: &str) -> Result<Result<String, RpcError>, HTTPError>;
+    fn say_hello(&self, to: &str) -> Result<Result<String, RpcError>, ClientError>;
 }
 
 /// An actual implementation of your client
@@ -13,7 +13,7 @@ struct HelloWorld {
 }
 
 impl HelloWorldApi for HelloWorld {
-    fn say_hello(&self, to: &str) -> Result<Result<String, RpcError>, HTTPError> {
+    fn say_hello(&self, to: &str) -> Result<Result<String, RpcError>, ClientError> {
         self.client.send(&RpcRequest::new1(
             JsonRpcVersion::V1,
             "test",

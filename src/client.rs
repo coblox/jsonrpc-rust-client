@@ -1,13 +1,22 @@
 use request::RpcRequest;
-use reqwest::{Client as HTTPClient, Error};
+use reqwest;
+use reqwest::Client as HTTPClient;
 use response::RpcResponse;
 use serde::{de::DeserializeOwned, Serialize};
+use serde_json;
 use std::fmt::Debug;
+use std::io::Read;
 use RpcError;
 
 pub struct RpcClient {
     client: HTTPClient,
     url: String,
+}
+
+#[derive(Debug)]
+pub enum Error {
+    Transport(reqwest::Error),
+    Json(serde_json::Error),
 }
 
 impl RpcClient {
@@ -26,16 +35,21 @@ impl RpcClient {
         T: Serialize,
         R: DeserializeOwned,
     {
-        debug!("Request: {:?}", request);
+        trace!(">>> {}", serde_json::to_string(request).unwrap());
 
         let res = self
             .client
             .post(self.url.as_str())
+            // TODO: Avoid serializing twice
             .json(request)
             .send()
-            .and_then(|mut res| res.json::<RpcResponse<R>>());
-
-        debug!("Response: {:?}", res);
+            .map_err(Error::Transport)
+            .and_then(|mut res| {
+                let mut buf = String::new();
+                let _ = res.read_to_string(&mut buf);
+                trace!("<<< {}", buf);
+                serde_json::from_str(&buf).map_err(Error::Json)
+            });
 
         res.map(RpcResponse::into_result)
 

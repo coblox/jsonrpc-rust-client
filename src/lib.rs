@@ -14,9 +14,10 @@ mod request;
 mod response;
 mod version;
 
+pub use client::Error as ClientError;
 pub use client::RpcClient;
 pub use request::RpcRequest;
-pub use reqwest::{Client as HTTPClient, ClientBuilder as HTTPClientBuilder, Error as HTTPError};
+pub use reqwest::{Client as HTTPClient, ClientBuilder as HTTPClientBuilder};
 pub use response::{RpcError, RpcResponse};
 pub use version::JsonRpcVersion;
 

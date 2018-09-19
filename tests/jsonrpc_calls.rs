@@ -1,3 +1,4 @@
+extern crate env_logger;
 extern crate jsonrpc_client;
 extern crate jsonrpc_core;
 extern crate jsonrpc_http_server;
@@ -13,11 +14,15 @@ fn main() {}
 #[test]
 
 fn get_server_response() {
+    let _ = env_logger::try_init();
+
     let mut io = IoHandler::new();
     io.add_method("helloworld", |_: Params| {
         Ok(Value::String("hello".to_string()))
     });
-    let _server = ServerBuilder::new(io).start_http(&"127.0.0.1:3030".parse().unwrap());
+    let server = ServerBuilder::new(io)
+        .start_http(&"127.0.0.1:3030".parse().unwrap())
+        .unwrap();
     let client = RpcClient::new(HTTPClient::new(), "http://127.0.0.1:3030");
 
     let res =
@@ -28,5 +33,5 @@ fn get_server_response() {
         .is_ok()
         .is_equal_to(&String::from("hello"));
 
-    _server.unwrap().close();
+    server.close();
 }
