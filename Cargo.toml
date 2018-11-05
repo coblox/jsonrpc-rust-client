@@ -23,6 +23,6 @@ log = "0.4"
 
 [dev-dependencies]
 spectral = "0.6"
-jsonrpc-http-server = "8"
+jsonrpc-http-server = "9"
 jsonrpc-core = "8"
 env_logger = "0.5"
