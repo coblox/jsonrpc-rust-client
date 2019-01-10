@@ -1,11 +1,10 @@
 extern crate env_logger;
 extern crate jsonrpc_client;
-extern crate jsonrpc_core;
 extern crate jsonrpc_http_server;
 extern crate spectral;
 
 use jsonrpc_client::*;
-use jsonrpc_core::*;
+use jsonrpc_http_server::jsonrpc_core::*;
 use jsonrpc_http_server::*;
 use spectral::prelude::*;
 
@@ -16,7 +15,7 @@ fn main() {}
 fn get_server_response() {
     let _ = env_logger::try_init();
 
-    let mut io = IoHandler::new();
+    let mut io = IoHandler::default();
     io.add_method("helloworld", |_: Params| {
         Ok(Value::String("hello".to_string()))
     });
